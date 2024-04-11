@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>js.cubing</title>
-		<script type="module">
-			import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scramble";
-			import { setSearchDebug } from "https://cdn.cubing.net/js/cubing/search";
-
-			setSearchDebug({
-				logPerf: false,
-				scramblePrefetchLevel: "none"
-			});
-			
-			async function generate() {
-				const scramble = await randomScrambleForEvent("333");
-				document.getElementById('d').innerHTML = scramble;
-			}
-			
-			document.getElementById('g').addEventListener('click', generate);
-		</script>
+		<title>EasyCube</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
 	</head>
 	<body>
-	<button id="g">Generate!</button>
-	<h1 id="d"><h1>
+	<div id="scramble-box">
+		<div id="scramble-menu">
+			<img id="refresh-scramble-bt"src="refresh-ico.png" alt="refresh"></img>
+			<p id="scramble-type-dis">3X3X3</p>
+			<img id="settings-scramble-bt"src="settings-ico.png" alt="settings"></img>
+			<div style="clear: both;"></div>
+		</div>
+		<h1 id="scramble">Loading Scramble...</h1>
+	</div>
+	<table id="time-list" ontouchstart="spaceDown()" ontouchend="spaceUp()">
+		<thead>
+			<tr>
+				<th>Single</th>
+				<th>MO3</th>
+				<th>AO5</th>
+				<th>AO12</th>
+			</tr>
+		</thead>
+		<tbody id="time-list-body">
+		</tbody>
+	</table>
+	<div id="touch" ontouchstart="spaceDown()" ontouchend="spaceUp()">
+		<h1 id="time-dis" ontouchstart="spaceDown()" ontouchend="spaceUp()">0.00</h1>
+	</div>
+	<script type="module" src="scramble.js"></script>
+	<script src="stopwatch.js"></script>
 	</body>
 </html>
