@@ -8,7 +8,8 @@ if (localStorage.getItem("version")) {
 		localStorage.setItem("version", "0.2");
 		document.getElementById("update-ok").focus();
 	} else {
-		go();
+		js = "yes";
+		updateScreen.style.visibility = "hidden";
 	}
 } else {
 	updateScreen.style.visibility = "visible";
@@ -19,6 +20,7 @@ if (localStorage.getItem("version")) {
 function go() {
 	js = "yes";
 	updateScreen.style.visibility = "hidden";
+	generate();
 }
 
 document.getElementById("update-ok").addEventListener("click", go);
