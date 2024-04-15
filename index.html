@@ -10,13 +10,25 @@
 			<img id="refresh-scramble-bt"src="refresh-ico.png" alt="refresh"></img>
 			<p id="scramble-type-dis">3X3X3</p>
 			<img id="settings-scramble-bt"src="settings-ico.png" alt="settings"></img>
+			<img id="copy-scramble-bt"src="copy-ico.png" alt="settings"></img>
 			<div style="clear: both;"></div>
 		</div>
 		<h1 id="scramble">Loading Scramble...</h1>
 	</div>
-	<table id="time-list" ontouchstart="spaceDown()" ontouchend="spaceUp()">
+	<div id="session-box">
+		<div>
+			<p id="session-label">Session:</p>
+			<button id="session-switch">Example</button>
+		</div>
+	</div>
+	<div id="session-list">
+		
+	</div>
+	<div id="time-list-box">
+		<table id="time-list" ontouchstart="spaceDown()" ontouchend="spaceUp()">
 		<thead>
 			<tr>
+				<th></th>
 				<th>Single</th>
 				<th>MO3</th>
 				<th>AO5</th>
@@ -25,11 +37,39 @@
 		</thead>
 		<tbody id="time-list-body">
 		</tbody>
-	</table>
-	<div id="touch" ontouchstart="spaceDown()" ontouchend="spaceUp()">
-		<h1 id="time-dis" ontouchstart="spaceDown()" ontouchend="spaceUp()">0.00</h1>
+		</table>
 	</div>
+	<div id="touch" ontouchstart="spaceDown()" ontouchend="spaceUp()">
+		<h1 id="time-dis">0.00</h1>
+	</div>
+	<div id="update">
+		<h2>Version: Beta 0.2</h2>
+		<ul>New features:
+			<li>New layout</li>
+			<li>Working time list</li>
+			<li>Automatic solves saving</li>
+			<li>Sessionbox</li>
+		</ul>
+		<ul>Coming soon:
+			<li>Session creation and editing</li>
+			<li>time analytics</li>
+			<li>different scramble types</li>
+			<li>scrambles and dates linked to solves</li>
+		</ul>
+		<button id="update-ok">OK</button>
+	</div>
+	<div id="popup">
+		<p id="popup-message"></p>
+		<button id="popup-yes">Yes</button>
+		<button id="popup-no">No</button>
+	</div>
+	<div id="blank">
+		
+	</div>
+	<script src="version.js"></script>
+	<script src="session.js"></script>
 	<script type="module" src="scramble.js"></script>
-	<script src="stopwatch.js"></script>
+	<script src="time_list.js"></script>
+	<script type="module" src="stopwatch.js"></script>
 	</body>
 </html>

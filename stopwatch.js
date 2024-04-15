@@ -1,7 +1,7 @@
 const timeDis = document.getElementById('time-dis');
-const timeListBody = document.getElementById('time-list-body');
 
 var int;
+let waitingTime = 300;
 let startSpace;
 var spaceStat = "up";
 var watchStat = "off";
@@ -9,31 +9,11 @@ var stopDone = "no";
 var startWait = "no";
 let startTimeStopwatch;
 let time;
-let min = 0;
-let hou = 0;
-let solves = 0;
-var times = [];
-
-function displayTime(time) {
-	const hours = Math.floor(time / 3600000);
-	const minutes = Math.floor((time % 3600000) / 60000);
-	const seconds = Math.floor((time % 60000) / 1000);
-	const milliseconds = Math.floor((time % 1000) / 10);
-	
-	if (hours < 1) {
-		if (minutes < 1) {
-			return `${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
-		} else {
-			return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
-		}
-	} else {
-		return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
-  }
-}
 
 function startStopwatch() {
 	watchStat = "on";
 	document.getElementById('scramble-box').style.visibility = "hidden";
+	document.getElementById('time-list-box').style.visibility = "hidden";
 	timeDis.style.color = "white"; 
 	startTimeStopwatch = new Date();
 	int = setInterval(() => { 
@@ -41,6 +21,7 @@ function startStopwatch() {
 		timeDis.innerHTML = displayTime(time);
 		document.getElementById('touch').style.top = "0px";
 		document.getElementById('touch').style.height = "calc(100vh - 40px)";
+		document.getElementById('touch').style.width = "calc(100vw - 40px)";
 	}, 1);
 }
 
@@ -48,21 +29,17 @@ function stopStopwatch() {
 	clearInterval(int);
 	generate();
 	document.getElementById('scramble-box').style.visibility = "visible";
+	document.getElementById('time-list-box').style.visibility = "visible";
 	document.getElementById('touch').style.top = "calc(50vh - 100px)";
 	document.getElementById('touch').style.height = "calc(50vh + 60px)";
+	document.getElementById('touch').style.width = "calc(100vw - 390px)";
 	time = new Date() - startTimeStopwatch;
 	solves ++;
-	times.push(time);
+	var sesTimes = times.find(obj => obj.name === activeSes).times;
+	sesTimes.push(time);
 	timeDis.innerHTML = displayTime(time);
-	timeListBody.innerHTML = "<tr><td>" + displayTime(time) + "</td>" + mo3() + "</tr>" + timeListBody.innerHTML;
-}
-
-function mo3() {
-	if (solves >= 3) {
-		return "<td>" + displayTime((times[solves - 1] + times[solves - 2] + times[solves - 3]) / 3) + "</td>";
-	} else {
-		return "<td style=\"text-align: center\">-</td>";
-	}
+	timeListBody.innerHTML = "<tr><td style=\"text-align: center;\">" + solves + "</td><td>" + displayTime(time) + "</td>" + mo3(solves) +ao5(solves) + ao12(solves) + "</tr>" + timeListBody.innerHTML;
+	localStorage.setItem("times", JSON.stringify(times));
 }
 
 function spaceDown() {
@@ -75,7 +52,7 @@ function spaceDown() {
 				startWait = "yes";
 				timeDis.style.color = "green"; 
 			}
-		}, 400);
+		}, waitingTime);
 	} else if (watchStat == "on" && stopDone == "no"){
 		stopDone = "yes";
 		stopStopwatch();
@@ -86,10 +63,10 @@ function spaceDown() {
 }
 
 function spaceUp() {
-	if (event.code === "Space" && (new Date() - startSpace) < 400 && spaceStat == "down" && watchStat == "off") {
+	if (event.code === "Space" && (new Date() - startSpace) < waitingTime && spaceStat == "down" && watchStat == "off") {
 		timeDis.style.color = "white"; 
 		spaceStat = "up";
-	} else if (event.code === "Space" && (new Date() - startSpace) >= 400 && startWait == "yes" && spaceStat == "down" && watchStat == "off") {
+	} else if (event.code === "Space" && (new Date() - startSpace) >= waitingTime && startWait == "yes" && spaceStat == "down" && watchStat == "off") {
 		startWait = "no";
 		startStopwatch();
 		spaceStat = "up";
@@ -102,9 +79,13 @@ function spaceUp() {
 }
 
 document.addEventListener("keydown", (event) => { 
-	spaceDown();
+	if (js == "yes") {
+		spaceDown();
+	}
 });
 
 document.addEventListener("keyup", (event) => { 
-	spaceUp();
+	if (js == "yes") {
+		spaceUp();
+	}
 });
