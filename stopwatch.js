@@ -1,4 +1,6 @@
+const touch = document.getElementById("touch");
 const timeDis = document.getElementById('time-dis');
+const timeIn = document.getElementById('time-in');
 
 var int;
 let waitingTime = 300;
@@ -9,41 +11,55 @@ var stopDone = "no";
 var startWait = "no";
 let startTimeStopwatch;
 let time;
+var type = "stopwatch";
+
+window.switchType = function switchType(n) {
+	type = n;
+	timeDis.style.visibility = "hidden";
+	timeIn.style.visibility = "hidden";
+	if (n == "stopwatch") {
+		timeDis.style.visibility = "visible";
+	} else if (n == "typing") {
+		timeIn.style.visibility = "visible";
+	}
+}
 
 function startStopwatch() {
 	watchStat = "on";
 	document.getElementById('scramble-box').style.visibility = "hidden";
 	document.getElementById('time-list-box').style.visibility = "hidden";
+	document.getElementById('session-box').style.visibility = "hidden";
+	document.getElementById('touch').style.top = "0px";
+	document.getElementById('touch').style.height = "calc(100vh - 40px)";
+	document.getElementById('touch').style.width = "calc(100vw - 40px)";
 	timeDis.style.color = "white"; 
 	startTimeStopwatch = new Date();
 	int = setInterval(() => { 
 		time = new Date() - startTimeStopwatch;
 		timeDis.innerHTML = displayTime(time);
-		document.getElementById('touch').style.top = "0px";
-		document.getElementById('touch').style.height = "calc(100vh - 40px)";
-		document.getElementById('touch').style.width = "calc(100vw - 40px)";
 	}, 1);
 }
 
 function stopStopwatch() {
 	clearInterval(int);
-	generate();
 	document.getElementById('scramble-box').style.visibility = "visible";
 	document.getElementById('time-list-box').style.visibility = "visible";
-	document.getElementById('touch').style.top = "calc(50vh - 100px)";
-	document.getElementById('touch').style.height = "calc(50vh + 60px)";
+	document.getElementById('session-box').style.visibility = "visible";
+	document.getElementById('touch').style.top = "200px";
+	document.getElementById('touch').style.height = "calc(100vh - 240px)";
 	document.getElementById('touch').style.width = "calc(100vw - 390px)";
 	time = new Date() - startTimeStopwatch;
 	solves ++;
 	var sesTimes = times.find(obj => obj.name === activeSes).times;
 	sesTimes.push(time);
 	timeDis.innerHTML = displayTime(time);
-	timeListBody.innerHTML = "<tr><td style=\"text-align: center;\">" + solves + "</td><td>" + displayTime(time) + "</td>" + mo3(solves) +ao5(solves) + ao12(solves) + "</tr>" + timeListBody.innerHTML;
+	timeListBody.innerHTML = "<tr><td class=\"time-list-num-box\" onclick=\"delTime(" + (solves - 1) + ", 1)\" style=\"text-align: center;\"><b class=\"time-list-num\">" + solves + "</b><b class=\"time-list-x\">X</b></td><td>" + displayTime(time) + "</td>" + mo3(solves) +ao5(solves) + ao12(solves) + "</tr>" + timeListBody.innerHTML;
 	localStorage.setItem("times", JSON.stringify(times));
+	generate();
 }
 
 function spaceDown() {
-	if (event.code === "Space" && spaceStat == "up" && watchStat == "off") { 
+	if (spaceStat == "up" && watchStat == "off" && js == "yes" && type == "stopwatch") { 
 		timeDis.style.color = "red"; 
 		startSpace = new Date();
 		spaceStat = "down";
@@ -53,24 +69,24 @@ function spaceDown() {
 				timeDis.style.color = "green"; 
 			}
 		}, waitingTime);
-	} else if (watchStat == "on" && stopDone == "no"){
+	} else if (watchStat == "on" && stopDone == "no" && js == "yes" && type == "stopwatch"){
 		stopDone = "yes";
 		stopStopwatch();
-	} else if (event.code === "Escape" && startWait == "yes") {
+	} else if (event.code === "Escape" && startWait == "yes" && js == "yes" && type == "stopwatch") {
 		timeDis.style.color = "white";
 		startWait = "no";
 	}
 }
 
 function spaceUp() {
-	if (event.code === "Space" && (new Date() - startSpace) < waitingTime && spaceStat == "down" && watchStat == "off") {
+	if ((new Date() - startSpace) < waitingTime && spaceStat == "down" && watchStat == "off" && js == "yes" && type == "stopwatch") {
 		timeDis.style.color = "white"; 
 		spaceStat = "up";
-	} else if (event.code === "Space" && (new Date() - startSpace) >= waitingTime && startWait == "yes" && spaceStat == "down" && watchStat == "off") {
+	} else if ((new Date() - startSpace) >= waitingTime && startWait == "yes" && spaceStat == "down" && watchStat == "off" && js == "yes" && type == "stopwatch") {
 		startWait = "no";
 		startStopwatch();
 		spaceStat = "up";
-	} else if (watchStat == "on") {
+	} else if (watchStat == "on" && js == "yes" && type == "stopwatch") {
 		stopDone = "no";
 		watchStat = "off";
 	} else {
@@ -78,14 +94,40 @@ function spaceUp() {
 	}
 }
 
-document.addEventListener("keydown", (event) => { 
-	if (js == "yes") {
+touch.addEventListener("keydown", function(event) { 
+	if (event.code === "Space" || event.code === "Escape") {
 		spaceDown();
+	} else if (watchStat == "on" && stopDone == "no" && js == "yes" && type == "stopwatch"){
+		stopDone = "yes";
+		stopStopwatch();
 	}
 });
 
-document.addEventListener("keyup", (event) => { 
-	if (js == "yes") {
+touch.addEventListener("keyup", function(event) { 
+	if (event.code === "Space") {
 		spaceUp();
 	}
 });
+
+touch.addEventListener("touchstart", function(event) { 
+		spaceDown();
+});
+
+touch.addEventListener("touchend", function(event) { 
+		spaceUp();
+});
+
+timeIn.addEventListener('keydown', function(event) {
+	if (event.key === 'Enter' && type == "typing" && timeIn.value >= 1 && js == "yes") {
+		time = timeIn.value * 10;
+		timeIn.value = "";
+		solves ++;
+		var sesTimes = times.find(obj => obj.name === activeSes).times;
+		sesTimes.push(time);
+		timeListBody.innerHTML = "<tr><td class=\"time-list-num-box\" onclick=\"delTime(" + (solves - 1) + ", 1)\" style=\"text-align: center;\"><b class=\"time-list-num\">" + solves + "</b><b class=\"time-list-x\">X</b></td><td>" + displayTime(time) + "</td>" + mo3(solves) +ao5(solves) + ao12(solves) + "</tr>" + timeListBody.innerHTML;
+		localStorage.setItem("times", JSON.stringify(times));
+		generate();
+	}
+});
+
+switchType(type);

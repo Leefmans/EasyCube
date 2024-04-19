@@ -1,0 +1,12 @@
+{
+  "name": "EasyCube | The Cube Timer For you!",
+  "short_name": "EasyCube",
+  "description": "Cube easier and better than ever with EasyCube!",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ffffff",
+  "permissions": [
+    "bluetooth"
+  ]
+}

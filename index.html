@@ -7,10 +7,10 @@
 	<body>
 	<div id="scramble-box">
 		<div id="scramble-menu">
-			<img id="refresh-scramble-bt"src="refresh-ico.png" alt="refresh"></img>
+			<img id="refresh-scramble-bt" src="refresh-ico.png" alt="refresh"></img>
 			<p id="scramble-type-dis">3X3X3</p>
-			<img id="settings-scramble-bt"src="settings-ico.png" alt="settings"></img>
-			<img id="copy-scramble-bt"src="copy-ico.png" alt="settings"></img>
+			<img id="settings-scramble-bt" src="settings-ico.png" alt="settings"></img>
+			<img id="copy-scramble-bt" src="copy-ico.png" alt="settings"></img>
 			<div style="clear: both;"></div>
 		</div>
 		<h1 id="scramble">Loading Scramble...</h1>
@@ -18,14 +18,15 @@
 	<div id="session-box">
 		<div>
 			<p id="session-label">Session:</p>
-			<button id="session-switch">Example</button>
+			<button id="session-switch"></button>
+			<img id="session-new" src="add-ico.png" alt="new"></img>
 		</div>
 	</div>
 	<div id="session-list">
 		
 	</div>
 	<div id="time-list-box">
-		<table id="time-list" ontouchstart="spaceDown()" ontouchend="spaceUp()">
+		<table id="time-list">
 		<thead>
 			<tr>
 				<th></th>
@@ -39,29 +40,38 @@
 		</tbody>
 		</table>
 	</div>
-	<div id="touch" ontouchstart="spaceDown()" ontouchend="spaceUp()">
+	<div id="touch" tabindex="0">
 		<h1 id="time-dis">0.00</h1>
+		<input id="time-in" type="number" inputmode="numeric" autocomplete="off"/>
 	</div>
 	<div id="update">
-		<h2>Version: Beta 0.2</h2>
-		<ul>New features:
+		<h3>Version: Beta 0.3</h3>
+		<p>New features:</p>
+		<ul>
 			<li>New layout</li>
-			<li>Working time list</li>
-			<li>Automatic solves saving</li>
-			<li>Sessionbox</li>
+			<li>Session creation</li>
+			<li>Time deletion</li>
 		</ul>
-		<ul>Coming soon:
-			<li>Session creation and editing</li>
+		<p>Coming soon:</p>
+		<ul>
+			<li>Session editing</li>
 			<li>time analytics</li>
 			<li>different scramble types</li>
 			<li>scrambles and dates linked to solves</li>
 		</ul>
 		<button id="update-ok">OK</button>
 	</div>
-	<div id="popup">
-		<p id="popup-message"></p>
-		<button id="popup-yes">Yes</button>
-		<button id="popup-no">No</button>
+	<div id="popup-box">
+		<div id="popup">
+			<p id="popup-message"></p>
+			<button id="popup-yes">Yes</button>
+			<button id="popup-no">No</button>
+		</div>
+	</div>
+	<div id="new-session-box">
+		<input id="new-session-in" type="text" placeholder="Name of session" autocomplete="off"/>
+		<img id="new-session-confirm" src="add-ico.png" alt="new"></img>
+		<img id="new-session-exit" src="add-ico.png" alt="new"></img>
 	</div>
 	<div id="blank">
 		

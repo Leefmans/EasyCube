@@ -7,8 +7,8 @@ window.retrieve = function retrieve() {
 		timeListBody.innerHTML = "";
 		var sesTimes = times.find(obj => obj.name === activeSes).times;
 		sesTimes.forEach((data, index) => { 
-				solves++;
-				timeListBody.innerHTML = "<tr><td style=\"text-align: center;\">" + (index + 1) + "</td><td>" + displayTime(data) + "</td>" + mo3(index + 1) + ao5(index + 1) + ao12(index + 1) + "</tr>" + timeListBody.innerHTML;
+			solves++;
+			timeListBody.innerHTML = "<tr><td class=\"time-list-num-box\" onclick=\"delTime(" + (solves - 1) + ", 1)\" style=\"text-align: center;\"><b class=\"time-list-num\">" + (index + 1) + "</b><b class=\"time-list-x\">X</b></td><td>" + displayTime(data) + "</td>" + mo3(index + 1) + ao5(index + 1) + ao12(index + 1) + "</tr>" + timeListBody.innerHTML;
 		});
 	}
 }
@@ -63,13 +63,14 @@ window.ao12 = function ao12(num) {
 
 window.delTime = function delTime(index, amount) {
 	if (localStorage.getItem("times")) {
-		times = JSON.parse("[" + localStorage.getItem("times") + "]"); 
+		times = JSON.parse(localStorage.getItem("times")); 
 		solves -= amount;
-		times.splice(index, amount);
-		localStorage.setItem("times", times);
+		var act = sessions.find(obj => obj.active === 'yes').name;
+		times.find(obj => obj.name === act).times.splice(index, amount);
+		localStorage.setItem("times", JSON.stringify(times));
 		timeListBody.innerHTML = "";
-		times.forEach((data, index) => { 
-			timeListBody.innerHTML = "<tr><td style=\"text-align: center;\">" + (index + 1) + "</td><td>" + displayTime(data) + "</td>" + mo3(index + 1) + ao5(index + 1) + ao12(index + 1) + "</tr>" + timeListBody.innerHTML;
+		times.find(obj => obj.name === act).times.forEach((data, index) => { 
+			timeListBody.innerHTML = "<tr><td class=\"time-list-num-box\" onclick=\"delTime(" + (index) + ", 1)\" style=\"text-align: center;\"><b class=\"time-list-num\">" + (index + 1) + "</b><b class=\"time-list-x\">X</b></td><td>" + displayTime(data) + "</td>" + mo3(index + 1) + ao5(index + 1) + ao12(index + 1) + "</tr>" + timeListBody.innerHTML;
 		});
 	}
 }
