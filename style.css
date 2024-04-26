@@ -33,24 +33,42 @@ body {
 	position: absolute;
 	top: 0px;
 	right: 0px;
-	width: 310px;
-	height: 100%;
+	width: 35vw;
+	height: 50vh;
 	background-color: #202040;
 	overflow-y: auto;
 	overflow-x: hidden;
+	scrollbar-width: none;
 	border-left: 2px solid white;
+	border-bottom: 2px solid white;
 }
 
 #time-list {
 	position: absolute;
-	width: 310px;
+	width: 35vw;
 	padding: 2px;
 }
 
 th, td {
-	border: 2px solid white;
-	border-radius: 10px;
+	font-size: 1vw;
 	padding: 2px;
+	height: 1.6vw;
+}
+
+#time-list-head {
+	background-color: black;
+}
+
+tr:nth-child(odd) {
+  background-color: #202040;
+}
+
+tr:nth-child(even) {
+  background-color: black;
+}
+
+#time-list-del-all {
+	cursor: pointer;
 }
 
 .time-list-num-box {
@@ -69,34 +87,51 @@ th, td {
 	display: block;
 }
 
+#graph-box {
+	color: white;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	width: 35vw;
+	height: calc(50vh - 2px);
+	border-left: 2px solid white;
+}
+
 #session-box {
 	position: absolute;
 	top: 0px;
-	width: 258px;
-	right: 312px;
-	height: 200px;
-	padding: 10px;
+	width: calc(13vw - 2px);
+	left: 51vw;
+	height: 29vh;
+	padding: 0.5vw;
 	background-color: #303030;
 	border-bottom: 2px solid white;
+	overflow: scroll;
+}
+
+#session-menu {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin: 0.5vw;
 }
 
 #session-label {
-	float: left;
 	color: white;
-	font-size: 20px;
+	font-size: 1.5vw;
 	margin: 0px;
-	margin-right: 5px;
+	margin-right: 0.2vw;
 }
 
 #session-switch {
-	cursor: pointer;
 	float: left;
-	height: 24px;
+	cursor: pointer;
+	height: 1.6vw;
 	padding-top: 0px;
-	width: 150px;
+	width: 10.5vw;
 	color: white;
-	font-size: 19px;
-	margin-right: 5px;
+	font-size: 1.2vw;
+	margin-right: 0.4vw;
 	background-color: transparent;
 	border: 1px solid white;
 	border-radius: 15px;
@@ -108,11 +143,16 @@ th, td {
 
 #session-new {
 	cursor: pointer;
-	width: 24px;
-	height: 24px;
+	height: 1.6vw;
 	float: left;
 	color: white;
-	font-size: 20px;
+}
+
+#pb-table {
+	position: absolute;
+	left: 0px;
+	top: 4vw;
+	margin: 0.5vw;
 }
 
 #session-list {
@@ -192,11 +232,11 @@ th, td {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	width: calc(100% - 610px);
+	width: 50vw;
 	text-align: center;
 	font-size: 1.4vw;
-	padding: 10px;
-	height: 200px;
+	padding: 0.5vw;
+	height: 29vh;
 	background-color: #202040;
 	border-bottom: 2px solid white;
 }
@@ -208,12 +248,13 @@ th, td {
 #refresh-scramble-bt {
 	cursor: pointer;
 	float: left;
+	height: 1.8vw;
 }
 
 #scramble-type-dis {
 	float: left;
 	margin: 0px 0px 0px 10px;
-	font-size: 32px;
+	font-size: 1.8vw;
 	font-weight: bold;
 }
 
@@ -221,19 +262,21 @@ th, td {
 	cursor: pointer;
 	margin: 0px 0px 0px 10px;
 	float: left;
+	height: 1.8vw;
 }
 
 #copy-scramble-bt {
 	cursor: pointer;
 	margin: 0px 0px 0px 10px;
 	float: left;
+	height: 1.8vw;
 }
 
 #touch {
 	position: absolute;
-	width: calc(100% - 310px);
-	top: 222px;
-	height: calc(100% - 222px);
+	width: calc(65vw - 2px);
+	bottom: 0px;
+	height: calc(70vh - 2px);
 	left: 0px;
 	z-index: 1;
 }
@@ -242,12 +285,20 @@ th, td {
 	outline: none;
 }
 
+#logo {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	margin: 1vw;
+	height: 4vw;
+}
+
 #time-dis {
 	position: absolute;
 	top: calc(50% - 100px);
 	font-family: lcd;
 	text-align: center;
-	font-size: 20vw;
+	font-size: 15vw;
 	background-color: transparent;
 	color: white;
 	letter-spacing: 12px;

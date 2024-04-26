@@ -11,8 +11,8 @@ function sessionDuplicate(sessionName) {
   return sessions.find(session => session.name === sessionName) === undefined;
 }
 
-function findActive(arr) {
-  return arr.find(obj => obj.active === 'yes').name;
+function findActive() {
+  return sessions.find(obj => obj.active === 'yes').name;
 }
 
 function openSesList() {
@@ -47,6 +47,8 @@ function swapSes(ses) {
 	localStorage.setItem("sessions", JSON.stringify(sessions));
 	activeSes = ses;
 	retrieve();
+	updateSesPBs();
+	updateGraph();
 }
 
 function newSes(name) {
@@ -108,7 +110,7 @@ function exitNewSes() {
 
 if (localStorage.getItem("sessions")) {
 	sessions = JSON.parse(localStorage.getItem("sessions"));
-	window.activeSes = findActive(sessions);
+	window.activeSes = findActive();
 	document.getElementById("session-switch").innerHTML = activeSes;
 	loadSesList(sessions);
 } else {

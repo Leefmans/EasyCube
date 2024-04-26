@@ -3,9 +3,9 @@ window.js = "no";
 
 
 if (localStorage.getItem("version")) {
-	if (localStorage.getItem("version") != "0.3") {
+	if (localStorage.getItem("version") != "0.4") {
 		updateScreen.style.visibility = "visible";
-		localStorage.setItem("version", "0.3");
+		localStorage.setItem("version", "0.4");
 		document.getElementById("update-ok").focus();
 	} else {
 		js = "yes";
@@ -13,7 +13,7 @@ if (localStorage.getItem("version")) {
 	}
 } else {
 	updateScreen.style.visibility = "visible";
-	localStorage.setItem("version", "0.3");
+	localStorage.setItem("version", "0.4");
 	document.getElementById("update-ok").focus();
 }
 

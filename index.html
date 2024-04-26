@@ -16,11 +16,36 @@
 		<h1 id="scramble">Loading Scramble...</h1>
 	</div>
 	<div id="session-box">
-		<div>
+		<div id="session-menu">
 			<p id="session-label">Session:</p>
 			<button id="session-switch"></button>
 			<img id="session-new" src="add-ico.png" alt="new"></img>
 		</div>
+		<table id="pb-table">
+			<thead>
+				<tr>
+					<th colspan="2">Session PB's:</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Single:</th>
+					<td id="pb-single">-</td>
+				</tr>
+				<tr>
+					<th>MO3:</th>
+					<td id="pb-1">-</td>
+				</tr>
+				<tr>
+					<th>AO5:</th>
+					<td id="pb-2">-</td>
+				</tr>
+				<tr>
+					<th>AO12:</th>
+					<td id="pb-3">-</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	<div id="session-list">
 		
@@ -28,29 +53,33 @@
 	<div id="time-list-box">
 		<table id="time-list">
 		<thead>
-			<tr>
-				<th></th>
+			<tr id="time-list-head">
+				<th id="time-list-del-all">X</th>
 				<th>Single</th>
-				<th>MO3</th>
-				<th>AO5</th>
-				<th>AO12</th>
+				<th id="data-1">MO3</th>
+				<th id="data-2">AO5</th>
+				<th id="data-3">AO12</th>
 			</tr>
 		</thead>
 		<tbody id="time-list-body">
 		</tbody>
 		</table>
 	</div>
+	<div id="graph-box">
+		<canvas id="graph"></canvas>
+	</div>
 	<div id="touch" tabindex="0">
+		<img id="logo" src="logo-white-text.png" alt="logo"></img>
 		<h1 id="time-dis">0.00</h1>
 		<input id="time-in" type="number" inputmode="numeric" autocomplete="off"/>
 	</div>
 	<div id="update">
-		<h3>Version: Beta 0.3</h3>
+		<h3>Version: Beta 0.4</h3>
 		<p>New features:</p>
 		<ul>
-			<li>New layout</li>
-			<li>Session creation</li>
-			<li>Time deletion</li>
+			<li>Time trend</li>
+			<li>New Lay-out</li>
+			<li>Logo</li>
 		</ul>
 		<p>Coming soon:</p>
 		<ul>
@@ -76,10 +105,12 @@
 	<div id="blank">
 		
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="version.js"></script>
 	<script src="session.js"></script>
 	<script type="module" src="scramble.js"></script>
 	<script src="time_list.js"></script>
+	<script src="graph.js"></script>
 	<script type="module" src="stopwatch.js"></script>
 	</body>
 </html>
