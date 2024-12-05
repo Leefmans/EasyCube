@@ -16,7 +16,7 @@
   
 <h2>🧐 Features</h2>
 
-Here're some of the project's best features:
+Here are some of the project's best features:
 
 *   Stopwatch
 *   Scramble generator
